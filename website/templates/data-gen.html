@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Data Generation{% endblock %}
+
+{% block content %}
+    <h1>Here we generate data</h1>
+    <form method="POST" enctype="multipart/form-data" action="/data-gen">
+        <h3 >Preparación de datos</h3>
+        {# Campo para seleccionar si se desea cargar CSV #}
+        <div class="form-group">
+            <label>¿Desea cargar un archivo CSV?</label>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="cargar_csv" id="csv_si" value="si" onchange="mostrarCampos()">
+                <label class="form-check-label" for="csv_si">Sí</label>
+                <br>
+                <small>Usted sube un archivo propio</small>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="cargar_csv" id="csv_no" value="no" checked onchange="mostrarCampos()">
+                <label class="form-check-label" for="csv_no">No</label>
+                <br>
+                <small>Generaremos un archivo por usted</small>
+            </div>
+        </div>
+    
+        {# Sección para cargar el archivo CSV (inicialmente oculta) #}
+        <div id="csv_upload_section" style="display: none;">
+            <div class="form-group">
+                <label for="archivo_csv">Seleccione el archivo CSV:</label>
+                <input type="file" class="form-control-file" id="archivo_csv" name="archivo_csv" accept=".csv">
+                <small class="form-text text-muted">El archivo debe tener extensión .csv</small>
+            </div>
+        </div>
+
+        {# campo para seleccionar la cantidad de muestras a generar #}
+        <div id="csv_registers_section" style="display: none;">
+            <div class="form-group">
+                <label for="cant_registers">Cuantas muestras desea?</label>
+                <input type="number" class="form-control-file" id="cant_registers" name="cant_registers">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+
+    <script>
+        function mostrarCampos() {
+            const csvSi = document.getElementById('csv_si').checked;
+            const csvSection = document.getElementById('csv_upload_section');
+            const csvNo = document.getElementById("csv_no").checked;
+            const regSection = document.getElementById("csv_registers_section");
+            
+        //     const archivoCsvInput = document.getElementById('archivo_csv');
+        // const cantRegistersInput = document.getElementById('cant_registers');
+
+        // if (csvSi) {
+        //     csvSection.style.display = 'block';
+        //     regSection.style.display = 'none';
+
+        //     // Hacer que solo el archivo CSV sea obligatorio
+        //     archivoCsvInput.required = true;
+        //     cantRegistersInput.required = false;
+        // } else if (csvNo) {
+        //     csvSection.style.display = 'none';
+        //     regSection.style.display = 'block';
+
+        //     // Hacer que solo el campo de cantidad de registros sea obligatorio
+        //     archivoCsvInput.required = false;
+        //     cantRegistersInput.required = true;
+        // }
+
+            if (csvSi) {
+                csvSection.style.display = 'block';
+            } else {
+                csvSection.style.display = 'none';
+            }
+
+            if (csvNo) {
+                regSection.style.display = "block";
+            } else {
+                regSection.style.display = "none";
+            }
+        }
+    </script>
+{% endblock %}
