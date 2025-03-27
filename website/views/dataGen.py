@@ -1,54 +1,22 @@
 from flask import Blueprint, render_template, request, current_app as app, flash
 import os
+from website import shared_data
 
-dataGen = Blueprint("dataGen", __name__)
+dataGenView = Blueprint("dataGenView", __name__)
 
-@dataGen.route("/data-gen", methods=["GET", "POST"])
+@dataGenView.route("/data-gen", methods=["GET", "POST"])
 def data_gen():
     if request.method == "POST":
-        # if "archivo_csv" in request.files:
-        #     archivo = request.files["archivo_csv"]
+        # borrar lo que haya en la carpeta uploads
+        upload_folder = app.config.get("UPLOAD_FOLDER", "")
+        if os.path.exists(upload_folder) and os.path.isdir(upload_folder):
+            archivos = os.listdir(upload_folder)
+            if archivos:
+                for archivo in archivos:
+                    os.remove(os.path.join(upload_folder, archivo))
 
-        #     if archivo.filename == '':
-        #         # return 'Nombre de archivo vacío', 400
-        #         flash("Nombre de archivo vacio", category="error")
-        #         # pass
-        
-        #     if archivo and archivo.filename.endswith('.csv'):
-        #         # Guardar el archivo
-        #         filename = os.path.join(app.config["UPLOAD_FOLDER"], archivo.filename)
-        #         archivo.save(filename)
-
-        #         import pandas as pd
-        #         datos = pd.read_csv(filename)
-
-        #         # return f"Archivo recibido con {len(datos)} registros"
-        #         flash(f"Archivo recibido con {len(datos)} registros", category="success")
-        #         # pass
-        #     else:
-        #         # return "Formato de arhivo no valido", 400
-        #         flash("Formato de archivo no valido", category="error")
-        #         # pass
-    
-        # cant_registers = request.form.get("cant_registers")
-        # if cant_registers:
-        #     try:
-        #         cant_registers = int(cant_registers)
-        #         if cant_registers < 50:
-        #             # return "La cantidad de muestras debe ser al menos 50", 400
-        #             flash("La cantidad de muestras debe ser al menos 50", category="error")
-        #             # pass
-        #         else:
-        #             # return f"Se generaron {cant_registers} registros"
-        #             flash(f"Se generaron {cant_registers} registros", category="success")
-        #     except ValueError:
-        #         # return "La cantidad de muestras debe ser un numero valido", 400
-        #         flash("La cantidad de muestras debe ser un numero valido", category="error")
-        #         # pass
-        # else:
-        #     # return "Debe seleccionar un archivo csv o ingresar la cantidad de muestras a generar"
-        #     flash("Debe seleccionar un archivo csv o ingresar la cantidad de muestras a generar", category="error")
-        #     # pass
+        #borrar la cantidad de registros recibidos
+        shared_data.received_registers = None
 
         archivo = request.files.get("archivo_csv")
         cant_registers = request.form.get("cant_registers")
@@ -79,6 +47,8 @@ def data_gen():
                     flash("La cantidad de muestras debe ser al menos 50", category="error")
                 else:
                     # Aquí puedes implementar la lógica para generar datos ficticios
+                    shared_data.received_registers = cant_registers
+                    # print(shared_data.received_registers)
                     flash(f"Se generaron {cant_registers} registros correctamente", category="success")
             except ValueError:
                 flash("La cantidad de muestras debe ser un número válido", category="error")
