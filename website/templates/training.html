@@ -11,10 +11,11 @@
         <div class="table-responsive">
             {{ table|safe }}
         </div>
+        <form method="POST" action="/training/train-model">
+            <button type="submit" class="btn btn-primary">Entrenar Modelo</button>
+        </form>
     {% else %}
         <p>No hay datos para mostrar.</p>
     {% endif %}
-
-
 
 {% endblock %}
