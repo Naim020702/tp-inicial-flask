@@ -4,15 +4,8 @@ body {
     margin: 0;
     padding: 0;
     color: white;
+    padding-top: 72px; /* Mayor que la altura de la navbar */
     height: 100vh;  /* Asegurarse de que el fondo cubra toda la altura de la ventana */
-}
-
-html, body {
-    height: auto;
-    min-height: 100vh; /* Asegura que al menos cubra la pantalla */
-    overflow-x: hidden; /* Evita scroll horizontal innecesario */
-    margin: 0;
-    padding: 0;
 }
 
 /* Contenedor general - Ajusta el margen superior para bajar todos los contenedores */
@@ -22,13 +15,12 @@ html, body {
 
 .navbar {
     position: fixed;
-    top: 0;
-    left: 0;
+    height: 73px; /* Ajusta según necesites */
+    line-height: 50px;
     width: 100%;
-    z-index: 1000; /* Asegura que la navbar esté por encima de otros elementos */
+    z-index: 900; /* Asegura que la navbar esté por encima de otros elementos */
     background-color: #343a40; /* Asegura que tenga color de fondo */
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Agrega sombra para mejor visibilidad */
-    display: flex;
     justify-content: center;
 }
 
@@ -52,12 +44,28 @@ html, body {
     font-weight: bold;
     color: white !important;
 }
-
 .flash-messages {
-    margin: 0;
-    padding: 10px;
+    position: fixed;
+    top: 60px; /* Asegura que se ubique debajo de la navbar */
+    left: 0;
+    width: 100%;
+    z-index: 1100; /* Asegura que los mensajes estén por encima de la navbar */
+    background-color: rgba(255, 255, 255, 0.9);
+    color: black;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.alert {
+    display: block; /* Para que cada mensaje ocupe una línea completa */
+    width: 100%; /* Ocupar todo el ancho */
+    padding: 15px; /* Más espacio */
+    border-radius: 0; /* Opcional: elimina el borde redondeado */
+    background-color: #f8d7da; /* Rojo claro para errores */
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
 .container {
     max-width: 960px;
     margin: 20px auto;
@@ -65,11 +73,6 @@ html, body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
-
-.alert {
-    margin: 0;
-    border-radius: 0;
 }
 
 .close {
