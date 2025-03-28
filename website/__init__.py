@@ -12,9 +12,11 @@ def create_app():
     from .views.home import homeView
     from .views.dataGen import dataGenView
     from .views.training import trainingView
+    from .views.predRes import predResView
 
     app.register_blueprint(homeView, url_prefix="/")
     app.register_blueprint(dataGenView, url_prefix="/")
     app.register_blueprint(trainingView, url_prefix="/")
+    app.register_blueprint(predResView, url_prefix="/")
 
     return app

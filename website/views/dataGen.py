@@ -7,6 +7,10 @@ dataGenView = Blueprint("dataGenView", __name__)
 @dataGenView.route("/data-gen", methods=["GET", "POST"])
 def data_gen():
     if request.method == "POST":
+        shared_data.modelo = None
+        shared_data.X_test = None
+        shared_data.y_test = None
+
         # borrar lo que haya en la carpeta uploads
         upload_folder = app.config.get("UPLOAD_FOLDER", "")
         if os.path.exists(upload_folder) and os.path.isdir(upload_folder):
