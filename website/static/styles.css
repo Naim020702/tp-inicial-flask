@@ -7,8 +7,27 @@ body {
     height: 100vh;  /* Asegurarse de que el fondo cubra toda la altura de la ventana */
 }
 
+html, body {
+    height: auto;
+    min-height: 100vh; /* Asegura que al menos cubra la pantalla */
+    overflow-x: hidden; /* Evita scroll horizontal innecesario */
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor general - Ajusta el margen superior para bajar todos los contenedores */
+.container, .content-container, .training-container, .home-container {
+    margin-top: 80px; /* Aumenta el margen superior para bajar los contenedores */
+}
+
 .navbar {
-    margin-bottom: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que la navbar esté por encima de otros elementos */
+    background-color: #343a40; /* Asegura que tenga color de fondo */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Agrega sombra para mejor visibilidad */
     display: flex;
     justify-content: center;
 }
@@ -62,6 +81,7 @@ body {
     max-width: 960px;
     margin: 20px auto;
     padding: 20px;
+    margin-top: 80px;
     background: #333;
     color: #fff;
     border-radius: 10px;
@@ -153,7 +173,6 @@ small {
     color: #bbb;
 }
 
-/* Botón con color atractivo */
 button {
     background-color: #17a2b8;
     color: white;
@@ -282,4 +301,32 @@ button:hover {
 .home-title {
     color: white;
     font-size: 2rem;
+}
+
+
+/* ---------------------------------------------------------------------------- */
+
+.table-scroll {
+    max-height: 400px; /* Ajusta según la altura deseada para mostrar aprox 15 filas */
+    overflow-y: auto;
+    border: 1px solid #ccc; /* Opcional: borde para delimitar la tabla */
+    border-radius: 8px; /* Opcional: bordes redondeados */
+}
+
+.table-scroll table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-scroll th, .table-scroll td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Línea separadora entre filas */
+}
+
+.table-scroll th {
+    background-color: #138496;
+    color: white;
+    position: sticky;
+    top: 0;
 }

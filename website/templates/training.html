@@ -9,13 +9,15 @@
         {% if table %}
             <h2 class="sub-title">Estos son los datos generados</h2>
 
+            <div class="table-container">
+                <div class="table-responsive table-scroll">
+                    {{ table|safe }}
+                </div>
+            </div>
+
             <form method="POST" action="/training/train-model">
                 <button type="submit" class="btn btn-primary train-btn">Entrenar Modelo</button>
             </form>
-
-            <div class="table-responsive table-container">
-                {{ table|safe }}
-            </div>
 
         {% else %}
             <p class="no-data-message">No hay datos para mostrar.</p>
