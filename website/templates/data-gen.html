@@ -3,46 +3,49 @@
 {% block title %}Data Generation{% endblock %}
 
 {% block content %}
-    <h1>Here we generate data</h1>
-    <form method="POST" enctype="multipart/form-data" action="/data-gen">
-        <h3 >Preparación de datos</h3>
-        {# Campo para seleccionar si se desea cargar CSV #}
-        <div class="form-group">
-            <label>¿Desea cargar un archivo CSV?</label>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="cargar_csv" id="csv_si" value="si" onchange="mostrarCampos()">
-                <label class="form-check-label" for="csv_si">Sí</label>
-                <br>
-                <small>Usted sube un archivo propio</small>
+    <!-- Contenedor principal para el cuadro -->
+    <div class="content-container">
+        <h1>Here we generate data</h1>
+        <form method="POST" enctype="multipart/form-data" action="/data-gen">
+            <h3>Preparación de datos</h3>
+            
+            {# Campo para seleccionar si se desea cargar CSV #}
+            <div class="form-group">
+                <label>¿Desea cargar un archivo CSV?</label>
+                <div class="form-check custom-radio">
+                    <input class="form-check-input" type="radio" name="cargar_csv" id="csv_si" value="si" onchange="mostrarCampos()">
+                    <label class="form-check-label" for="csv_si">Sí</label>
+                    <small>Usted sube un archivo propio</small>
+                </div>
+                <div class="form-check custom-radio">
+                    <input class="form-check-input" type="radio" name="cargar_csv" id="csv_no" value="no" onchange="mostrarCampos()">
+                    <label class="form-check-label" for="csv_no">No</label>
+                    <small>Generaremos un archivo por usted</small>
+                </div>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="cargar_csv" id="csv_no" value="no" checked onchange="mostrarCampos()">
-                <label class="form-check-label" for="csv_no">No</label>
-                <br>
-                <small>Generaremos un archivo por usted</small>
+        
+            {# Sección para cargar el archivo CSV (inicialmente oculta) #}
+            <div id="csv_upload_section" style="display: none;">
+                <div class="form-group">
+                    <label for="archivo_csv">Seleccione el archivo CSV:</label>
+                    <input type="file" class="form-control-file" id="archivo_csv" name="archivo_csv" accept=".csv">
+                    <small class="form-text text-muted">El archivo debe tener extensión .csv</small>
+                </div>
             </div>
-        </div>
+
+            {# Campo para seleccionar la cantidad de muestras a generar #}
+            <div id="csv_registers_section" style="display: none;">
+                <div class="form-group">
+                    <label for="cant_registers">Cuantas muestras desea?</label>
+                    <input type="number" class="form-control-file" id="cant_registers" name="cant_registers">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+
+    </div>
     
-        {# Sección para cargar el archivo CSV (inicialmente oculta) #}
-        <div id="csv_upload_section" style="display: none;">
-            <div class="form-group">
-                <label for="archivo_csv">Seleccione el archivo CSV:</label>
-                <input type="file" class="form-control-file" id="archivo_csv" name="archivo_csv" accept=".csv">
-                <small class="form-text text-muted">El archivo debe tener extensión .csv</small>
-            </div>
-        </div>
-
-        {# campo para seleccionar la cantidad de muestras a generar #}
-        <div id="csv_registers_section" style="display: none;">
-            <div class="form-group">
-                <label for="cant_registers">Cuantas muestras desea?</label>
-                <input type="number" class="form-control-file" id="cant_registers" name="cant_registers">
-            </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Enviar</button>
-    </form>
-
     <script>
         function mostrarCampos() {
             const csvSi = document.getElementById('csv_si').checked;

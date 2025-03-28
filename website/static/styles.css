@@ -1,0 +1,285 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #28292b !important;  /* Uso de !important para forzar la prioridad */
+    margin: 0;
+    padding: 0;
+    color: white;
+    height: 100vh;  /* Asegurarse de que el fondo cubra toda la altura de la ventana */
+}
+
+.navbar {
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: #ffffff;
+    transition: color 0.3s ease-in-out;
+    text-align: center;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #17a2b8;
+}
+
+.navbar-nav .nav-item .nav-link.active {
+    font-weight: bold;
+    color: white !important;
+}
+
+.flash-messages {
+    margin: 0;
+    padding: 10px;
+}
+
+.container {
+    max-width: 960px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.alert {
+    margin: 0;
+    border-radius: 0;
+}
+
+.close {
+    cursor: pointer;
+}
+
+/* Nuevo estilo para el contenedor de contenido */
+.content-container {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #333;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+}
+
+.content-container h1, .content-container h3 {
+    text-align: center;
+}
+
+/* Formato de los campos del formulario */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1.2rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Estilo para los radio buttons */
+.form-check {
+    position: relative;
+    margin-bottom: 15px;
+    padding-left: 30px; /* Espacio para el círculo */
+}
+
+.form-check-input {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0; /* Ocultar el radio input original */
+    cursor: pointer;
+}
+
+.form-check-input:checked + .form-check-label::before {
+    background-color: #17a2b8; /* Color de fondo del radio cuando está seleccionado */
+    border-color: #17a2b8;
+}
+
+.form-check-label {
+    position: relative;
+    padding-left: 35px; /* Espacio para el círculo */
+    font-size: 1.1rem;
+    cursor: pointer;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+/* Crear un círculo alrededor del radio button */
+.form-check-label::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #6c757d; /* Borde del radio */
+    background-color: #fff;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.form-check-label:hover::before {
+    border-color: #17a2b8;
+}
+
+/* Efecto de "checked" */
+.form-check-input:checked + .form-check-label::before {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+/* Estilo para el texto pequeño */
+.form-check small {
+    display: block;
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin-top: 5px;
+}
+
+small {
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+/* Botón con color atractivo */
+button {
+    background-color: #17a2b8;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #138496;
+}
+
+#csv_upload_section, #csv_registers_section {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #343a40; /* Fondo oscuro */
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    color: #ffffff; /* Texto blanco */
+}
+
+#csv_upload_section .form-group, #csv_registers_section .form-group {
+    margin-bottom: 15px;
+}
+
+#csv_upload_section label, #csv_registers_section label {
+    font-weight: bold;
+    color: #ffffff; /* Etiquetas en blanco */
+}
+
+#csv_upload_section .form-control-file, #csv_registers_section .form-control-file {
+    border-radius: 5px;
+    border: 1px solid #6c757d; /* Borde gris claro */
+    padding: 10px;
+    background-color: #495057; /* Fondo de los campos oscuro */
+    color: #ffffff; /* Texto blanco en los campos */
+    font-size: 1rem; /* Tamaño de texto */
+}
+
+#csv_upload_section .form-control-file::file-selector-button {
+    background-color: #17a2b8; /* Botón de selección con color */
+    color: white; /* Texto blanco en el botón */
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#csv_upload_section .form-control-file::file-selector-button:hover {
+    background-color: #138496; /* Color al pasar el mouse */
+}
+
+#csv_upload_section .form-text, #csv_registers_section .form-text {
+    font-size: 0.9rem;
+    color: #adb5bd; /* Gris claro para el texto de ayuda */
+    margin-top: 5px;
+}
+
+
+/* --------------------------------------------------------------------- */
+
+/* Estilo general para la página de entrenamiento */
+.training-container {
+    max-width: 1300px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9; /* Fondo claro */
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.page-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.sub-title {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.table-container {
+    margin-bottom: 20px;
+}
+
+
+
+.train-btn {
+    background-color: #17a2b8;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin-block-end: 20px;
+}
+
+.train-btn:hover {
+    background-color: #138496;
+}
+
+.no-data-message {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #888;
+    margin-top: 20px;
+}
+
+
+/* -------------------------------------------------------------------- */
+
+.home-container {
+    text-align: center;  /* Centrar el texto */
+    padding: 20px;       /* Espaciado alrededor */
+}
+
+.home-title {
+    color: white;
+    font-size: 2rem;
+}

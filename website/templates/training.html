@@ -3,19 +3,22 @@
 {% block title %}Training{% endblock %}
 
 {% block content %}
+    <div class="training-container">
+        <h1 class="page-title">This is the Training Page</h1>
 
-    <h1>This is the Training Page</h1>
+        {% if table %}
+            <h2 class="sub-title">Estos son los datos generados</h2>
 
-    {% if table %}
-        <h2>Estos son los datos generados</h2>
-        <div class="table-responsive">
-            {{ table|safe }}
-        </div>
-        <form method="POST" action="/training/train-model">
-            <button type="submit" class="btn btn-primary">Entrenar Modelo</button>
-        </form>
-    {% else %}
-        <p>No hay datos para mostrar.</p>
-    {% endif %}
+            <form method="POST" action="/training/train-model">
+                <button type="submit" class="btn btn-primary train-btn">Entrenar Modelo</button>
+            </form>
 
+            <div class="table-responsive table-container">
+                {{ table|safe }}
+            </div>
+
+        {% else %}
+            <p class="no-data-message">No hay datos para mostrar.</p>
+        {% endif %}
+    </div>
 {% endblock %}
