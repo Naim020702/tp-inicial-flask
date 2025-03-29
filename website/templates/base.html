@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     
+    <!-- Enlaces a los archivos CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='data-gen.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='training.css') }}">
+
+    
+    <!-- Enlaces a Bootstrap y Font Awesome desde CDN -->
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -16,8 +23,10 @@
       href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
       crossorigin="anonymous"
     />
+    
     <title>{% block title %}Home{% endblock %}</title>
 </head>
+
 <body>
   <!-- Barra de navegación -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -26,10 +35,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbar">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" id="home" href="/">Home</a>
-            <a class="nav-item nav-link" id="data-gen" href="/data-gen">Data-Generation</a>
-            <a class="nav-item nav-link" id="training" href="/training">Training</a>
-            <a class="nav-item nav-link" id="prediction" href="/pred-res">Prediction</a>
+            <a class="nav-item nav-link {% if request.path == '/' %}active{% endif %}" id="home" href="/">Home</a>
+            <a class="nav-item nav-link {% if request.path == '/data-gen' %}active{% endif %}" id="data-gen" href="/data-gen">Data-Generation</a>
+            <a class="nav-item nav-link {% if request.path == '/training' %}active{% endif %}" id="training" href="/training">Training</a>
+            <a class="nav-item nav-link {% if request.path == '/pred-res' %}active{% endif %}" id="prediction" href="/pred-res">Prediction</a>
         </div>
     </div>
 </nav>

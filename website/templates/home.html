@@ -4,6 +4,51 @@
 
 {% block content %}
     <div class="home-container">
-        <h1 class="home-title">This is the home page</h1>
+        <h1 class="home-title text-center">Predictor de Candidatos</h1>
+        
+        <!-- Contenedor con ventana desplazable -->
+        <div class="info-section mt-5 scrollable-box">
+            <h2 class="scrollable-title">Información sobre la Plataforma de Evaluación de Candidatos</h2>
+            <p>
+                Esta plataforma permite analizar y predecir la aptitud de candidatos para un puesto de trabajo mediante un modelo de clasificación basado en <strong>regresión logística</strong>.
+            </p>
+            <h4 class="scrollable-title">¿Cómo funciona?</h4>
+            <p>
+                El sistema trabaja con datos estructurados en formato CSV, los cuales pueden ser subidos por el usuario o generados automáticamente por la plataforma. Cada archivo contiene información clave sobre los candidatos, incluyendo:
+            </p>
+            <ul>
+                <li><strong>ID</strong>: Identificador único del candidato.</li>
+                <li><strong>Género</strong>: Masculino o Femenino.</li>
+                <li><strong>Años de Experiencia</strong>: Tiempo trabajado en el área.</li>
+                <li><strong>Nivel Educativo</strong>: Secundario o Universitario.</li>
+                <li><strong>Habilidades Técnicas</strong>: Competencia en Python, Java y SQL.</li>
+                <li><strong>Apto</strong>: Indica si el candidato cumple con los criterios para ser considerado para el puesto.</li>
+            </ul>
+            
+            <h4 class="scrollable-title">Proceso de Evaluación</h4>
+            <ol>
+                <li><strong>Carga o Generación de Datos</strong>: Los usuarios pueden subir su propio archivo CSV o solicitar que el sistema genere uno con datos sintéticos.</li>
+                <li><strong>Entrenamiento del Modelo</strong>: Se aplica un modelo de <strong>regresión logística</strong> entrenado con los datos ingresados. Se identifican patrones en la experiencia, nivel educativo y habilidades técnicas.</li>
+                <li><strong>Predicción y Resultados</strong>: Una vez entrenado el modelo, el sistema clasifica a los candidatos en <strong>Aptos</strong> o <strong>No Aptos</strong>. Los resultados se muestran en una tabla de fácil interpretación.</li>
+            </ol>
+
+            <h4 class="scrollable-title">Beneficios del Sistema</h4>
+            <ul>
+                <li><strong>Automatización del proceso de selección</strong>: Reduce el tiempo de análisis de perfiles.</li>
+                <li><strong>Decisiones basadas en datos</strong>: Utiliza criterios objetivos para evaluar candidatos.</li>
+                <li><strong>Flexibilidad en la entrada de datos</strong>: Soporta carga de archivos personalizados y generación automática.</li>
+                <li><strong>Interfaz intuitiva</strong>: Permite una interacción sencilla con los datos y resultados.</li>
+            </ul>
+
+            <p>
+                Esta herramienta está diseñada para facilitar la <strong>gestión de talento</strong>, optimizando la selección de candidatos mediante el uso de inteligencia artificial.
+            </p>
+        </div>
+
+        <!-- Sección de autores -->
+        <div class="authors-section mt-5">
+            <h3 class="text-center">Autores</h3>
+            <p class="text-center">Este proyecto fue desarrollado por un equipo de profesionales en ciencia de datos y desarrollo web. Agradecemos su contribución y esfuerzo en la creación de esta plataforma.</p>
+        </div>
     </div>
 {% endblock %}

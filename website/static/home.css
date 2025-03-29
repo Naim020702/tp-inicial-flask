@@ -1,0 +1,53 @@
+/* Estilo para la página de inicio (Home) */
+.home-container {
+    text-align: center;  /* Centrar el texto */
+    padding: 20px;       /* Espaciado alrededor */
+}
+
+.home-title {
+    color: white;
+    font-size: 2rem;
+}
+
+/* ---------------------------------------------------------------------------- */
+
+/* Estilo para la caja desplazable */
+.scrollable-box {
+    max-height: 450px;  /* Altura máxima que se puede desplazar */
+    overflow-y: auto;   /* Habilita el desplazamiento vertical */
+    padding: 15px; /* Añadí un poco más de espacio alrededor del texto */
+    border: 1px solid #ddd;
+    border-radius: 8px;  /* Bordes redondeados */
+    background-color: #343a40;  /* Fondo oscuro */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    color: #f8f9fa; /* Texto blanco suave */
+    text-align: left; /* Alineación del texto a la izquierda */
+    line-height: 1.6; /* Aumento de la altura de línea para mejorar la legibilidad */
+}
+
+/* Estilo para los títulos dentro de la caja desplazable */
+.scrollable-title {
+    margin-top: 20px;
+    color: #00bcd4; /* Títulos en color cyan */
+    font-weight: normal; /* Quita la negrita */
+}
+
+/* Estilo para el texto en negrita dentro de la caja desplazable */
+.scrollable-box strong, .scrollable-box b {
+    color: #ff9800; /* Color naranja para el texto en negrita */
+}
+
+/* Estilo para la sección de autores */
+.authors-section {
+    color: #f8f9fa; /* Texto blanco suave */
+    background-color: #333; /* Fondo oscuro para la sección de autores */
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* Título de la sección de autores */
+.authors-section h3 {
+    color: #ff9800; /* Título de la sección de autores en color naranja */
+    font-weight: bold; /* Hacerlo más visible */
+}

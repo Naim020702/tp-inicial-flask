@@ -1,0 +1,82 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna y legible */
+    background-color: #28292b !important;  /* Uso de !important para forzar la prioridad */
+    margin: 0;
+    padding: 0;
+    color: white;
+    padding-top: 72px; /* Mayor que la altura de la navbar */
+    height: 100vh;  /* Asegurarse de que el fondo cubra toda la altura de la ventana */
+}
+
+/* Contenedor general - Ajusta el margen superior para bajar todos los contenedores */
+.container, .content-container, .training-container, .home-container {
+    margin-top: 40px; /* Aumenta el margen superior para bajar los contenedores */
+}
+
+.navbar {
+    position: fixed;
+    height: 73px; /* Ajusta según necesites */
+    line-height: 50px;
+    width: 100%;
+    z-index: 900; /* Asegura que la navbar esté por encima de otros elementos */
+    background-color: #343a40; /* Asegura que tenga color de fondo */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Agrega sombra para mejor visibilidad */
+    justify-content: center;
+}
+
+.navbar-nav {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.navbar-nav .nav-item .nav-link {
+    color: #ffffff;
+    transition: color 0.3s ease-in-out;
+    text-align: center;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+    color: #17a2b8;
+}
+
+.navbar-nav .nav-item .nav-link.active {
+    font-weight: bold;
+    color: white !important;
+}
+
+.flash-messages {
+    position: fixed;
+    top: 60px; /* Asegura que se ubique debajo de la navbar */
+    left: 0;
+    width: 100%;
+    z-index: 1100; /* Asegura que los mensajes estén por encima de la navbar */
+    background-color: rgba(255, 255, 255, 0.9);
+    color: black;
+    padding: 15px 0;
+    text-align: center;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.alert {
+    display: block; /* Para que cada mensaje ocupe una línea completa */
+    width: 100%; /* Ocupar todo el ancho */
+    padding: 15px; /* Más espacio */
+    border-radius: 0; /* Opcional: elimina el borde redondeado */
+    background-color: #f8d7da; /* Rojo claro para errores */
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.container {
+    max-width: 960px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    cursor: pointer;
+}
