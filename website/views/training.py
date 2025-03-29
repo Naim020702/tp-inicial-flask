@@ -3,10 +3,11 @@ from website import shared_data
 import os
 from website import generate_data
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
 
 trainingView = Blueprint("trainingView", __name__)
 
@@ -23,6 +24,7 @@ def carpeta_contiene_archivos():
 @trainingView.route("/training")
 def train():
     global global_df
+    class_distribution = None
     if shared_data.received_registers is not None:
         flash(f"Cantidad de registros recibidos: {shared_data.received_registers}", category="info")
         #GENERAR EL DATASET CON LA CANT DE MUESTRAS QUE INDICO EL USUARIO
@@ -30,6 +32,7 @@ def train():
         global_df = generate_data.generar_csv(shared_data.received_registers)
         # table = df.to_html(classes="table table-striped", index=False)
         table = global_df.to_html(classes="table table-striped", index=False)
+        class_distribution = global_df['apto'].value_counts().to_dict()  # Calcular distribución
         # print(df)
         print(global_df)
     elif carpeta_contiene_archivos():
@@ -43,36 +46,64 @@ def train():
             global_df = pd.read_csv(file_path)  # Guarda el DataFrame en la variable global
             # table = df.to_html(classes="table table-striped", index=False) 
             table = global_df.to_html(classes="table table-striped", index=False)
+            class_distribution = global_df['apto'].value_counts().to_dict()  # Calcular distribución
     else:
         table = None
         flash("No hay datos disponibles para entrenar.", category="error")
 
-    return render_template("training.html", table=table)
+    return render_template("training.html", table=table, class_distribution=class_distribution)
+
+# def entrenar_modelo(df):
+#     # Preparar los datos para el entrenamiento
+#     X = df[['Años_Experiencia', 'Nivel_Educativo', 'Habilidad_Python', 'Habilidad_Java', 'Habilidad_SQL']]
+#     y = df['Apto']
+
+#     # Convertir variables categóricas
+#     columnas_categoricas = ['Nivel_Educativo']
+#     transformador = ColumnTransformer(
+#         transformers=[
+#             ('cat', OneHotEncoder(), columnas_categoricas)
+#         ],
+#         remainder='passthrough'
+#     )
+#     X = transformador.fit_transform(X)
+
+#     # Dividir los datos en entrenamiento y prueba
+#     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+#     # Entrenar el modelo
+#     modelo = LogisticRegression()
+#     modelo.fit(X_train, y_train)
+
+#     # Devolver el modelo entrenado, los datos de prueba y el transformador
+#     return modelo, X_test, y_test
 
 def entrenar_modelo(df):
-    # Preparar los datos para el entrenamiento
-    X = df[['Años_Experiencia', 'Nivel_Educativo', 'Habilidad_Python', 'Habilidad_Java', 'Habilidad_SQL']]
-    y = df['Apto']
+    categorical_features = ['genero', 'habilidad', 'nivel_educativo']
+    numeric_features = ['años_experiencia']
 
-    # Convertir variables categóricas
-    columnas_categoricas = ['Nivel_Educativo']
-    transformador = ColumnTransformer(
+    # Preprocesador
+    preprocessor = ColumnTransformer(
         transformers=[
-            ('cat', OneHotEncoder(), columnas_categoricas)
-        ],
-        remainder='passthrough'
-    )
-    X = transformador.fit_transform(X)
+            ('num', 'passthrough', numeric_features),
+            ('cat', OneHotEncoder(), categorical_features)
+        ])
 
-    # Dividir los datos en entrenamiento y prueba
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    # Crear pipeline
+    pipeline = Pipeline([
+        ('preprocessor', preprocessor),
+        ('classifier', LogisticRegression(random_state=42))
+    ])
 
-    # Entrenar el modelo
-    modelo = LogisticRegression()
-    modelo.fit(X_train, y_train)
+    # Dividir datos
+    X = df.drop(['id', 'apto'], axis=1)
+    y = df['apto']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
-    # Devolver el modelo entrenado, los datos de prueba y el transformador
-    return modelo, X_test, y_test
+    # Entrenar modelo
+    pipeline.fit(X_train, y_train)
+
+    return pipeline, X_test, y_test
 
 @trainingView.route("/training/train-model", methods=["POST"])
 def train_model():

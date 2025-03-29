@@ -5,8 +5,8 @@
 {% block content %}
     <div class="training-container">
         <h1 class="page-title">This is the Training Page</h1>
-
-        {% if table %}
+        <!-- si la tabla y distribucion de clases estan disponibles -->
+        {% if table and class_distribution %}
             <h2 class="sub-title">Estos son los datos generados</h2>
 
             <div class="table-container">
@@ -14,6 +14,24 @@
                     {{ table|safe }}
                 </div>
             </div>
+
+            <h3>Distribución de Clases</h3>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Clase</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for clase, cantidad in class_distribution.items() %}
+                        <tr>
+                            <td>{{ clase }}</td>
+                            <td>{{ cantidad }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
             <form method="POST" action="/training/train-model">
                 <button type="submit" class="btn btn-primary train-btn">Entrenar Modelo</button>

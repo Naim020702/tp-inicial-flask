@@ -4,4 +4,25 @@
 
 {% block content %}
     <h1>Here we can see predictions and some results</h1>
+    {% if show_button %}
+        <form method="POST" action="/pred-res">
+            <button type="submit" class="btn btn-primary">Realizar prediccion</button>
+        </form>
+    {% endif %}
+    {% if resultados %}
+            <h2 class="sub-title">Resultados de la Predicción</h2>
+            <p><strong>Precisión:</strong> {{ resultados.precision }}</p>
+            <h3>Matriz de Confusión:</h3>
+            <table class="table table-bordered">
+                {% for row in resultados.matriz_confusion %}
+                    <tr>
+                        {% for value in row %}
+                            <td>{{ value }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </table>
+            <h3>Reporte de Clasificación:</h3>
+            <pre>{{ resultados.reporte_clasificacion }}</pre>
+    {% endif %}
 {% endblock %}
