@@ -3,26 +3,47 @@
 {% block title %}Prediction & Results{% endblock %}
 
 {% block content %}
-    <h1>Here we can see predictions and some results</h1>
-    {% if show_button %}
-        <form method="POST" action="/pred-res">
-            <button type="submit" class="btn btn-primary">Realizar prediccion</button>
-        </form>
-    {% endif %}
-    {% if resultados %}
-            <h2 class="sub-title">Resultados de la Predicción</h2>
-            <p><strong>Precisión:</strong> {{ resultados.precision }}</p>
-            <h3>Matriz de Confusión:</h3>
-            <table class="table table-bordered">
-                {% for row in resultados.matriz_confusion %}
-                    <tr>
-                        {% for value in row %}
-                            <td>{{ value }}</td>
+    <div class="container">
+        <h1>Here we can see predictions and some results</h1>
+        
+        {% if not resultados %}
+            <div class="prediction-form">
+                <form method="POST" action="/pred-res">
+                    <button type="submit" class="btn btn-primary">Realizar predicción</button>
+                </form>
+            </div>
+        {% endif %}
+        
+        {% if resultados %}
+            <div class="results-section">
+                <h2 class="sub-title">Resultados de la Predicción</h2>
+                <div class="precision">
+                    <p><strong>Precisión:</strong> {{ resultados.precision }}</p>
+                </div>
+                
+                <div class="confusion-matrix">
+                    <h3>Matriz de Confusión:</h3>
+                    <table class="table table-bordered">
+                        {% for row in resultados.matriz_confusion %}
+                            <tr>
+                                {% for value in row %}
+                                    <td>{{ value }}</td>
+                                {% endfor %}
+                            </tr>
                         {% endfor %}
-                    </tr>
-                {% endfor %}
-            </table>
-            <h3>Reporte de Clasificación:</h3>
-            <pre>{{ resultados.reporte_clasificacion }}</pre>
-    {% endif %}
+                    </table>
+                </div>
+
+                <div class="classification-report">
+                    <h3>Reporte de Clasificación:</h3>
+                    <pre>{{ resultados.reporte_clasificacion }}</pre>
+                </div>
+
+                <div class="confusion-matrix-image">
+                    <h3>Visualización de la Matriz de Confusión:</h3>
+                    <img src="{{ url_for('static', filename='matriz_confusion.png') }}" alt="Matriz de Confusión" class="img-fluid">
+                </div>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

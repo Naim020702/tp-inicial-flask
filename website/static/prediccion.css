@@ -1,0 +1,46 @@
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+h2, h3 {
+    color: #6c757d;
+    margin-top: 20px;
+}
+
+p {
+    font-size: 1.1rem;
+}
+
+.btn-success {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+}
+
+.table {
+    margin-top: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.table-bordered td, .table-bordered th {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+}
+
+pre {
+    background-color: #f1f3f5;
+    padding: 15px;
+    border-radius: 5px;
+    white-space: pre-wrap;
+}

@@ -51,3 +51,13 @@
     color: #ff9800; /* Título de la sección de autores en color naranja */
     font-weight: bold; /* Hacerlo más visible */
 }
+
+.authors-section ul {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.authors-section strong {
+    color: #ff9800;
+}

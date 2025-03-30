@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, flash, request
+from website.views.generar_matriz_confusion import generar_matriz_confusion
 from website import shared_data
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
@@ -13,10 +14,14 @@ def realizar_prediccion(modelo, X_test, y_test):
     matriz_confusion = confusion_matrix(y_test, y_pred)
     reporte_clasificacion = classification_report(y_test, y_pred)
 
+    # Generar y guardar la imagen de la matriz de confusión
+    ruta_imagen = generar_matriz_confusion(matriz_confusion)
+
     resultados = {
         'precision': precision,
         'matriz_confusion': matriz_confusion,
         'reporte_clasificacion': reporte_clasificacion,
+        'ruta_imagen': ruta_imagen 
     }
     return resultados
 
