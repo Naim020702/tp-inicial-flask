@@ -1,4 +1,5 @@
-from flask import Blueprint, render_template, request, flash, current_app as app
+from flask import Blueprint, render_template, request, flash, current_app as app, send_file
+import io
 from website import shared_data
 import os
 from website import generate_data
@@ -118,3 +119,23 @@ def train_model():
             print("Modelo entrenado con exito")
             
     return render_template("training.html", table=None)
+
+@trainingView.route("/training/download-csv", methods=["GET"])
+def download_csv():
+    global global_df
+    if global_df is not None:
+        # Convertir el DataFrame a un archivo CSV en memoria
+        csv_buffer = io.StringIO()
+        global_df.to_csv(csv_buffer, index=False)
+        csv_buffer.seek(0)
+
+        # Enviar el archivo como una descarga
+        return send_file(
+            io.BytesIO(csv_buffer.getvalue().encode('utf-8')),
+            mimetype="text/csv",
+            as_attachment=True,
+            download_name="datos_generados.csv"
+        )
+    else:
+        flash("No hay datos disponibles para descargar.", category="error")
+        return render_template("training.html", table=None)
