@@ -44,3 +44,22 @@ pre {
     border-radius: 5px;
     white-space: pre-wrap;
 }
+
+.image-container {
+    display: flex;
+    justify-content: space-between; /* Alinea las imágenes a los lados */
+    gap: 20px; /* Espacio entre las imágenes */
+    flex-wrap: wrap; /* Permite que las imágenes se ajusten en pantallas pequeñas */
+}
+
+.image-container img {
+    max-width: 100%; /* Las imágenes ocuparán el 100% del espacio disponible */
+    height: auto; /* Mantiene la proporción original */
+    object-fit: contain; /* Mantiene la proporción y ajusta las imágenes dentro del contenedor */
+    max-height: 600px; /* Establece una altura máxima para las imágenes */
+}
+
+.confusion-matrix-image, .sigmoid-curve-image {
+    flex: 1; /* Las imágenes ocupan el mismo espacio */
+    width: 60%; /* Controla el tamaño de cada imagen */
+}

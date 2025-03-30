@@ -6,7 +6,7 @@
     <div class="container">
         <h1>Here we can see predictions and some results</h1>
         
-        {% if show_button %}
+        {% if show_button and not resultados %}
             <div class="prediction-form">
                 <form method="POST" action="/pred-res">
                     <button type="submit" class="btn btn-primary">Realizar predicción</button>
@@ -39,9 +39,15 @@
                     <pre>{{ resultados.reporte_clasificacion }}</pre>
                 </div>
 
-                <div class="confusion-matrix-image">
-                    <h3>Visualización de la Matriz de Confusión:</h3>
-                    <img src="{{ url_for('static', filename='matriz_confusion.png') }}" alt="Matriz de Confusión" class="img-fluid">
+                <div class="image-container">
+                    <div class="confusion-matrix-image">
+                        <h3>Visualización de la Matriz de Confusión:</h3>
+                        <img src="{{ url_for('static', filename='matriz_confusion.png') }}" alt="Matriz de Confusión" class="img-fluid">
+                    </div>
+                    <div class="sigmoid-curve-image">
+                        <h3>Visualización de la Curva Sigmoide:</h3>
+                        <img src="{{ url_for('static', filename='curva_sigmoide.png') }}" alt="Curva Sigmoide" class="img-fluid">
+                    </div>
                 </div>
 
             </div>
