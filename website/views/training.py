@@ -26,11 +26,15 @@ def carpeta_contiene_archivos():
 def train():
     global global_df
     class_distribution = None
-    if shared_data.received_registers is not None:
+    if shared_data.already_generated:
+        table = global_df.to_html(classes="table table-striped", index=False)
+        class_distribution = global_df['apto'].value_counts().to_dict()
+    elif shared_data.received_registers is not None:
         flash(f"Cantidad de registros recibidos: {shared_data.received_registers}", category="info")
         #GENERAR EL DATASET CON LA CANT DE MUESTRAS QUE INDICO EL USUARIO
         # df = generate_data.generar_csv(shared_data.received_registers)
         global_df = generate_data.generar_csv(shared_data.received_registers)
+        shared_data.already_generated = True
         # table = df.to_html(classes="table table-striped", index=False)
         table = global_df.to_html(classes="table table-striped", index=False)
         class_distribution = global_df['apto'].value_counts().to_dict()  # Calcular distribución

@@ -10,6 +10,7 @@ def data_gen():
         shared_data.modelo = None
         shared_data.X_test = None
         shared_data.y_test = None
+        shared_data.already_generated = None
 
         # borrar lo que haya en la carpeta uploads
         upload_folder = app.config.get("UPLOAD_FOLDER", "")

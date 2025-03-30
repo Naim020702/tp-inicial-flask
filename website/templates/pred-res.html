@@ -6,14 +6,14 @@
     <div class="container">
         <h1>Here we can see predictions and some results</h1>
         
-        {% if show_button and not resultados %}
+        {% if show_button %}
             <div class="prediction-form">
                 <form method="POST" action="/pred-res">
                     <button type="submit" class="btn btn-primary">Realizar predicción</button>
-                 </form>
-             </div>
-         {% endif %}
- 
+                </form>
+            </div>
+        {% endif %}
+
         {% if resultados %}
             <div class="results-section">
                 <h2 class="sub-title">Resultados de la Predicción</h2>
