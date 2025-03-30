@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, flash, request
 from website.views.generar_matriz_confusion import generar_matriz_confusion
+from website.views.generar_curva_sigmoide import generar_curva_sigmoide
 from website import shared_data
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
@@ -17,11 +18,15 @@ def realizar_prediccion(modelo, X_test, y_test):
     # Generar y guardar la imagen de la matriz de confusión
     ruta_imagen = generar_matriz_confusion(matriz_confusion)
 
+    # Llamar a la función para generar la curva sigmoide
+    ruta_curva_sigmoide = generar_curva_sigmoide(modelo, X_test)
+
     resultados = {
         'precision': precision,
         'matriz_confusion': matriz_confusion,
         'reporte_clasificacion': reporte_clasificacion,
-        'ruta_imagen': ruta_imagen 
+        'ruta_imagen': ruta_imagen, 
+        'ruta_curva_sigmoide': ruta_curva_sigmoide  
     }
     return resultados
 
