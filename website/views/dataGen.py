@@ -11,6 +11,7 @@ def data_gen():
         shared_data.X_test = None
         shared_data.y_test = None
         shared_data.already_generated = None
+        shared_data.results = None
 
         # borrar lo que haya en la carpeta uploads
         upload_folder = app.config.get("UPLOAD_FOLDER", "")
@@ -38,7 +39,15 @@ def data_gen():
                     import pandas as pd
                     datos = pd.read_csv(filename)
 
-                    flash(f"Archivo recibido con {len(datos)} registros", category="success")
+                    # Verificar si contiene las columnas adecuadas
+                    columnas_esperadas = {"id", "genero", "años_experiencia", "habilidad", "nivel_educativo", "probabilidad_apto", "apto"}
+                    columnas_archivo = set(datos.columns)
+
+                    if not columnas_esperadas.issubset(columnas_archivo):
+                        flash(f"El archivo no contiene las columnas adecuadas. Se esperaban: {', '.join(columnas_esperadas)}", category="error")
+                        os.remove(filename)
+                    else:
+                        flash(f"Archivo recibido con {len(datos)} registros", category="success")
                 except Exception as e:
                     flash(f"Error al procesar el archivo: {str(e)}", category="error")
             else:

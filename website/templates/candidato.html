@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Información del Candidato{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Información del Candidato</h1>
+        <table class="table table-striped">
+            <tbody>
+                {% for key, value in candidato.items() %}
+                    <tr>
+                        <th>{{ key }}</th>
+                        <td>{{ value }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="/pred-res" class="btn btn-primary">Volver</a>
+    </div>
+{% endblock %}

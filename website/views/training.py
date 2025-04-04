@@ -31,25 +31,17 @@ def train():
         class_distribution = global_df['apto'].value_counts().to_dict()
     elif shared_data.received_registers is not None:
         flash(f"Cantidad de registros recibidos: {shared_data.received_registers}", category="info")
-        #GENERAR EL DATASET CON LA CANT DE MUESTRAS QUE INDICO EL USUARIO
-        # df = generate_data.generar_csv(shared_data.received_registers)
         global_df = generate_data.generar_csv(shared_data.received_registers)
         shared_data.already_generated = True
-        # table = df.to_html(classes="table table-striped", index=False)
         table = global_df.to_html(classes="table table-striped", index=False)
         class_distribution = global_df['apto'].value_counts().to_dict()  # Calcular distribución
-        # print(df)
-        print(global_df)
     elif carpeta_contiene_archivos():
         flash("La carpeta 'uploads' contiene archivos.", category="success")
-        #LEVANTAR EL DATASET CARGADO POR USUARIO
         upload_folder = app.config.get("UPLOAD_FOLDER", "")
         archivos = os.listdir(upload_folder)
         if archivos:
             file_path = os.path.join(upload_folder, archivos[0])  # Toma el primer archivo
-            # df = pd.read_csv(file_path)
             global_df = pd.read_csv(file_path)  # Guarda el DataFrame en la variable global
-            # table = df.to_html(classes="table table-striped", index=False) 
             table = global_df.to_html(classes="table table-striped", index=False)
             class_distribution = global_df['apto'].value_counts().to_dict()  # Calcular distribución
     else:
@@ -57,31 +49,6 @@ def train():
         flash("No hay datos disponibles para entrenar.", category="error")
 
     return render_template("training.html", table=table, class_distribution=class_distribution)
-
-# def entrenar_modelo(df):
-#     # Preparar los datos para el entrenamiento
-#     X = df[['Años_Experiencia', 'Nivel_Educativo', 'Habilidad_Python', 'Habilidad_Java', 'Habilidad_SQL']]
-#     y = df['Apto']
-
-#     # Convertir variables categóricas
-#     columnas_categoricas = ['Nivel_Educativo']
-#     transformador = ColumnTransformer(
-#         transformers=[
-#             ('cat', OneHotEncoder(), columnas_categoricas)
-#         ],
-#         remainder='passthrough'
-#     )
-#     X = transformador.fit_transform(X)
-
-#     # Dividir los datos en entrenamiento y prueba
-#     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-#     # Entrenar el modelo
-#     modelo = LogisticRegression()
-#     modelo.fit(X_train, y_train)
-
-#     # Devolver el modelo entrenado, los datos de prueba y el transformador
-#     return modelo, X_test, y_test
 
 def entrenar_modelo(df):
     categorical_features = ['genero', 'habilidad', 'nivel_educativo']
@@ -101,12 +68,12 @@ def entrenar_modelo(df):
     ])
 
     # Dividir datos
-    X = df.drop(['id', 'apto'], axis=1)
+    X = df.drop(['apto'], axis=1)
     y = df['apto']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
 
     # Entrenar modelo
-    pipeline.fit(X_train, y_train)
+    pipeline.fit(X_train.drop(['id'], axis=1), y_train)
 
     return pipeline, X_test, y_test
 
