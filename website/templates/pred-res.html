@@ -13,7 +13,8 @@
                 </form>
             </div>
         {% endif %}
-
+        
+        <!-- Si los resultados pasados en la funcion para renderizar existen, empezamos a crear secciones para mostrarlos -->
         {% if resultados %}
             <div class="results-section">
                 <h2 class="sub-title">Resultados de la Predicción</h2>
@@ -67,6 +68,7 @@
                                 <td>{{ real }}</td>
                                 <td>{{ predicho }}</td>
                                 <td>
+                                    <!-- Mostremos solo la informacion de aquellos aptos predichos correctamente -->
                                     {% if predicho == "Sí" %}
                                         <form method="GET" action="/candidato/{{ id }}">
                                             <button type="submit" class="btn btn-info">Ver Información</button>

@@ -20,7 +20,7 @@ def generar_matriz_confusion(matriz_confusion):
             plt.fill_between([j, j + 1], [i, i], [i + 1, i + 1], color=colores[i, j])  # Colorear cuadrante
             # Colocar el valor de la matriz en su correspondiente cuadrante
             plt.text(j + 0.5, i + 0.5, str(matriz_confusion[i, j]), ha='center', va='center', 
-                     color='black', fontsize=12, fontweight='bold')
+                    color='black', fontsize=12, fontweight='bold')
 
     # Cambiar las etiquetas de los cuadrantes según lo solicitado y colocarlas debajo de los números
     etiquetas = np.array([

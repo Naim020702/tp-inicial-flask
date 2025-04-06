@@ -5,7 +5,7 @@
 {% block content %}
     <div class="training-container">
         <h1 class="page-title">This is the Training Page</h1>
-        <!-- si la tabla y distribucion de clases estan disponibles -->
+        <!-- Si la tabla y distribucion de clases estan disponibles en nuestra funcion para renderizar -->
         {% if table and class_distribution %}
             <h2 class="sub-title">Estos son los datos generados</h2>
 
@@ -39,6 +39,7 @@
                 </tbody>
             </table>
 
+            <!-- Boton para entrenar modelo, notemos que solo se muestra si existen datos para entrenarlo -->
             <form method="POST" action="/training/train-model">
                 <button type="submit" class="btn btn-primary train-btn">Entrenar Modelo</button>
             </form>

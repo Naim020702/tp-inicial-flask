@@ -9,9 +9,8 @@ predResView = Blueprint("predResView", __name__)
 def realizar_prediccion(modelo, X_test, y_test):
     # Realizar predicciones
     y_pred = modelo.predict(X_test.drop(['id'], axis=1))
-    print(X_test)
 
-    # Calcular métricas
+    # Calcular métricas de evaluacion
     precision = accuracy_score(y_test, y_pred)
     matriz_confusion = confusion_matrix(y_test, y_pred)
     reporte_clasificacion = classification_report(y_test, y_pred)
@@ -19,13 +18,14 @@ def realizar_prediccion(modelo, X_test, y_test):
     # Generar y guardar la imagen de la matriz de confusión
     ruta_imagen = generar_matriz_confusion(matriz_confusion)
 
-    # Llamar a la función para generar la curva sigmoide
+    # Generar y guardar la curva sigmoide
     ruta_curva_sigmoide = generar_curva_sigmoide(modelo, X_test.drop(['id'], axis=1))
 
     # Seleccionar una muestra de resultados reales y predichos
-    ids = X_test['id'].tolist()
-    muestra_resultados = list(zip(ids, y_test, y_pred))  # Muestra de los primeros 10 valores
+    ids = X_test['id'].tolist() # Obtener los ids de los candidatos
+    muestra_resultados = list(zip(ids, y_test, y_pred)) # Combinar ids, resultados reales y predicciones
 
+    # Diccionario con los resultados de la prediccion
     resultados = {
         'precision': precision,
         'matriz_confusion': matriz_confusion,
@@ -38,10 +38,12 @@ def realizar_prediccion(modelo, X_test, y_test):
 
 @predResView.route("/pred-res", methods=["GET", "POST"])
 def pred_res():
+    # Extrae el modelo y los datos de prueba de la informacion compartida
     modelo = shared_data.modelo
     X_test = shared_data.X_test
     y_test = shared_data.y_test
 
+    # Si existen los elementos necesarios para predecir, se habilita el boton de predecir
     boolean = modelo is not None and X_test is not None and y_test is not None
     resultados = None
 
@@ -50,15 +52,20 @@ def pred_res():
     else:
         flash("No hay datos para predecir", category="error")
 
+    # Maneja la prediccion al presionar el boton
     if request.method == "POST":
         resultados = realizar_prediccion(modelo, X_test, y_test)
-        shared_data.results = resultados
+        shared_data.results = resultados # Almacenamos los datos de la prediccion en informacion compartida
 
+    # Si ya existen resultados de prediccion, los mantenemos
     if shared_data.results is not None:
         resultados = shared_data.results
 
+    # Avisamos al .html que se debe mostrar el boton para realizar la prediccion, ya que existe el modelo entrenado y los datos de prueba
+    # Pasamos los resultados y candidatos para que se muestren en el .html
     return render_template("pred-res.html", show_button=boolean, resultados=resultados, candidatos=X_test)
 
+# Ruta para info de un candidato especifico
 @predResView.route("/candidato/<int:id>", methods=["GET"])
 def ver_candidato(id):
     # Filtrar el candidato por ID en X_test
