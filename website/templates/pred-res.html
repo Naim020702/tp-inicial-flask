@@ -51,35 +51,6 @@
                     </div>
                 </div>
 
-                <!-- <h3>Resultados Reales vs Predichos</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Real</th>
-                            <th>Predicho</th>
-                            <th>Acción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for id, real, predicho in resultados.muestra_resultados %}
-                            <tr>
-                                <td>{{ id }}</td>
-                                <td>{{ real }}</td>
-                                <td>{{ predicho }}</td>
-                                <td>
-                                    Mostremos solo la informacion de aquellos aptos predichos correctamente
-                                    {% if predicho == "Sí" and real == "Sí" %}
-                                        <form method="GET" action="/candidato/{{ id }}">
-                                            <button type="submit" class="btn btn-info">Ver Información</button>
-                                        </form>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table> -->
-
                 <div class="real-vs-predicted-section mt-5">
                     <h3 class="text-center text-primary">Resultados Reales vs Predichos</h3>
                     <div class="table-responsive">
