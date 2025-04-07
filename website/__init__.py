@@ -5,8 +5,10 @@ import os
 # Funcion para crear la aplicacion de Flask
 def create_app():
     app = Flask(__name__)
-    app.config["SECRET_KEY"] = "mysecretkey" # Clave secreta para la aplicacion
-    app.config["UPLOAD_FOLDER"] = "uploads" # Carpeta para subir archivos
+    # app.config["SECRET_KEY"] = "mysecretkey" # Clave secreta para la aplicacion
+    # app.config["UPLOAD_FOLDER"] = "uploads" # Carpeta para subir archivos
+    app.config["SECRET_KEY"] = os.getenv("SECRET_KEY", "mysecretkey")  # Lee SECRET_KEY de las variables de entorno
+    app.config["UPLOAD_FOLDER"] = os.getenv("UPLOAD_FOLDER", "/tmp/uploads")  # Lee UPLOAD_FOLDER de las variables de entorno
 
     # Si la carpeta de subida no existe, crearla
     if not os.path.exists(app.config['UPLOAD_FOLDER']):
