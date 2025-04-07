@@ -6,4 +6,4 @@ app = create_app()
 
 # Si este archivo es ejecutado directamente, se inicia la aplicacion
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
