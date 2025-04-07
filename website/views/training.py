@@ -43,7 +43,7 @@ def previous_verification():
         class_distribution = global_df['apto'].value_counts().to_dict()  # Calcular distribución
     # Si el usuario cargo un archivo Csv de datos correctamente(La carpeta uploads no esta vacia)...
     elif carpeta_contiene_archivos():
-        flash("La carpeta 'uploads' contiene archivos.", category="success")
+        flash("Hay un archivo disponible.", category="success")
         upload_folder = app.config.get("UPLOAD_FOLDER", "")
         archivos = os.listdir(upload_folder)
         if archivos:
